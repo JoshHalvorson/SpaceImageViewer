@@ -13,7 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
+        <Button
+            android:id="@+id/new_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/new_image_button_text" />
         <ProgressBar
             android:id="@+id/progress_bar"
             style="?android:attr/progressBarStyle"
@@ -53,10 +57,5 @@
             android:textSize="8sp"
             android:textStyle="italic" />
 
-        <Button
-            android:id="@+id/new_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/new_image_button_text" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

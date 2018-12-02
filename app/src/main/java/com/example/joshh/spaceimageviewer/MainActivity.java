@@ -68,11 +68,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 imageView.setImageBitmap(null);
                 progressBar.setVisibility(View.VISIBLE);
+                findViewById(R.id.new_image).setEnabled(false);
                 int id = (int)(Math.random() * ((MAX_INDEX - 1) + 1)) + 1;
                 getNewImage(id);
                 Log.i("imageid", Integer.toString(id));
             }
         });
+        findViewById(R.id.new_image).setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
         getNewImage((int)(Math.random() * ((MAX_INDEX - 1) + 1)) + 1);
     }
@@ -103,15 +105,18 @@ public class MainActivity extends AppCompatActivity {
                             bitmap = NetworkAdapter.httpImageRequest(urls[urls.length - 1]);
                             if(bitmap == null){
                                 bitmap = NetworkAdapter.httpImageRequest(urls[urls.length - 2]);
+                            }else{
+                                if(bitmap.getByteCount() > MAX_BYTE_SIZE){
+                                    bitmap = NetworkAdapter.httpImageRequest(urls[urls.length - 2]);
+                                }
                             }
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     if(bitmap != null){
-                                        if(bitmap.getByteCount() < MAX_BYTE_SIZE){
-                                            progressBar.setVisibility(View.GONE);
-                                            imageView.setImageBitmap(bitmap);
-                                        }
+                                        progressBar.setVisibility(View.GONE);
+                                        imageView.setImageBitmap(bitmap);
+                                        findViewById(R.id.new_image).setEnabled(true);
                                     }
                                 }
                             });
