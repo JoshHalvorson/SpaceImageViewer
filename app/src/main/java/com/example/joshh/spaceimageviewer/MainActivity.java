@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int MAX_INDEX = 4277;
     public static final String HTTP_HUBBLESITE_ORG = "http://hubblesite.org/";
+    public static final int MAX_BYTE_SIZE = 112560000;
     private ImageView imageView;
     private TextView imageDesc, imageCredits, imageName;
     private ProgressBar progressBar;
@@ -91,20 +92,23 @@ public class MainActivity extends AppCompatActivity {
                     List<ImageFile> imageUrls = image.getImageFiles();
                     urls = new String[imageUrls.size()];
                     for(int i = 0; i < imageUrls.size(); i++){
-                        urls[i] = imageUrls.get(i).getFileUrl();
+                        String url = imageUrls.get(i).getFileUrl();
+                        if(url.substring(url.length() - 4, url.length()).equals(".jpg")){
+                            urls[i] = url;
+                        }
                     }
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            bitmap = NetworkAdapter.httpImageRequest(urls[urls.length - 2]);
+                            bitmap = NetworkAdapter.httpImageRequest(urls[urls.length - 1]);
                             if(bitmap == null){
-                                bitmap = NetworkAdapter.httpImageRequest(urls[urls.length - 3]);
+                                bitmap = NetworkAdapter.httpImageRequest(urls[urls.length - 2]);
                             }
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     if(bitmap != null){
-                                        if(bitmap.getByteCount() < 112560000){
+                                        if(bitmap.getByteCount() < MAX_BYTE_SIZE){
                                             progressBar.setVisibility(View.GONE);
                                             imageView.setImageBitmap(bitmap);
                                         }
