@@ -16,8 +16,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 
-import java.util.List;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -33,7 +31,7 @@ public class NetworkAdapter {
             .addConverterFactory(GsonConverterFactory.create());
     private static SpaceTelescopeImage image;
 
-    public static SpaceTelescopeImage getImage(int id, final ImageIdsCallBack callBack) {
+    public static SpaceTelescopeImage getImage(int id, final ImageCallBack callBack) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
