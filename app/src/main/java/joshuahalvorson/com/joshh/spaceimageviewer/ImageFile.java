@@ -1,4 +1,4 @@
-package com.example.joshh.spaceimageviewer;
+package joshuahalvorson.com.joshh.spaceimageviewer;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -22,16 +22,8 @@ public class ImageFile {
         return fileUrl;
     }
 
-    public void setFileUrl(String fileUrl) {
-        this.fileUrl = fileUrl;
-    }
-
     public int getFileSize() {
         return fileSize;
-    }
-
-    public void setFileSize(int fileSize) {
-        this.fileSize = fileSize;
     }
 
     public int getWidth() {

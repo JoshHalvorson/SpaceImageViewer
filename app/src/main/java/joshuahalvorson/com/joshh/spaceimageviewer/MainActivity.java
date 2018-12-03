@@ -1,52 +1,43 @@
-package com.example.joshh.spaceimageviewer;
+package joshuahalvorson.com.joshh.spaceimageviewer;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.ResponseBody;
+import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final int MAX_INDEX = 4277;
     public static final String HTTP_HUBBLESITE_ORG = "http://hubblesite.org/";
-    public static final int MAX_BYTE_SIZE = 112560000;
     private ImageView imageView;
     private TextView imageDesc, imageCredits, imageName;
     private ProgressBar progressBar;
-    private Bitmap bitmap;
-    private String[] urls;
+    private String urls;
     private Context context;
 
     @Override
@@ -66,17 +57,16 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.new_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageView.setImageBitmap(null);
                 progressBar.setVisibility(View.VISIBLE);
-                findViewById(R.id.new_image).setEnabled(false);
                 int id = (int)(Math.random() * ((MAX_INDEX - 1) + 1)) + 1;
                 getNewImage(id);
                 Log.i("imageid", Integer.toString(id));
             }
         });
-        findViewById(R.id.new_image).setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
-        getNewImage((int)(Math.random() * ((MAX_INDEX - 1) + 1)) + 1);
+        int id = (int)(Math.random() * ((MAX_INDEX - 1) + 1)) + 1;
+        getNewImage(id);
+        Log.i("imageid", Integer.toString(id) + " - onCreate");
     }
 
     private void getNewImage(int id){
@@ -92,36 +82,32 @@ public class MainActivity extends AppCompatActivity {
                 final SpaceTelescopeImage image = response.body();
                 if (image != null) {
                     List<ImageFile> imageUrls = image.getImageFiles();
-                    urls = new String[imageUrls.size()];
+                    urls = "";
+                    StringBuilder sb = new StringBuilder();
                     for(int i = 0; i < imageUrls.size(); i++){
                         String url = imageUrls.get(i).getFileUrl();
-                        if(url.substring(url.length() - 4, url.length()).equals(".jpg")){
-                            urls[i] = url;
+                        if(url.substring(url.length() - 4, url.length()).equals(".jpg") || url.substring(url.length() - 4, url.length()).equals(".png")){
+                            sb.append(url).append(",");
                         }
                     }
-                    new Thread(new Runnable() {
+                    urls = sb.toString();
+                    urls = urls.replaceAll(", $", "");
+                    String[] validUrls = urls.split(",");
+                    Log.i("imageurlloaded", validUrls[validUrls.length - 1]);
+                    Glide.with(context).load(validUrls[validUrls.length - 1]).thumbnail(Glide.with(context).load(validUrls[1])).listener(new RequestListener<Drawable>() {
                         @Override
-                        public void run() {
-                            bitmap = NetworkAdapter.httpImageRequest(urls[urls.length - 1]);
-                            if(bitmap == null){
-                                bitmap = NetworkAdapter.httpImageRequest(urls[urls.length - 2]);
-                            }else{
-                                if(bitmap.getByteCount() > MAX_BYTE_SIZE){
-                                    bitmap = NetworkAdapter.httpImageRequest(urls[urls.length - 2]);
-                                }
-                            }
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if(bitmap != null){
-                                        progressBar.setVisibility(View.GONE);
-                                        imageView.setImageBitmap(bitmap);
-                                        findViewById(R.id.new_image).setEnabled(true);
-                                    }
-                                }
-                            });
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            Toast.makeText(context, "Error getting image", Toast.LENGTH_LONG).show();
+                            Log.i("GlideException", e.getMessage());
+                            return false;
                         }
-                    }).start();
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            progressBar.setVisibility(View.GONE);
+                            return false;
+                        }
+                    }).into(imageView);
 
                     imageDesc.setText(image.getDescription());
                     if(imageDesc.getText().toString().equals("")){

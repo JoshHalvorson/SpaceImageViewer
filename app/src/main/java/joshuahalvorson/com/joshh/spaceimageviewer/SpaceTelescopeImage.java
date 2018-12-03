@@ -1,22 +1,8 @@
-package com.example.joshh.spaceimageviewer;
+package joshuahalvorson.com.joshh.spaceimageviewer;
 
-import android.media.Image;
-import android.util.Log;
-
-import com.google.gson.JsonArray;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import java.util.List;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 public class SpaceTelescopeImage {
 
@@ -62,24 +48,8 @@ public class SpaceTelescopeImage {
         return credits;
     }
 
-    public void setCredits(String credits) {
-        this.credits = credits;
-    }
-
     public String getNewsName() {
         return newsName;
-    }
-
-    public void setNewsName(String newsName) {
-        this.newsName = newsName;
-    }
-
-    public String getMission() {
-        return mission;
-    }
-
-    public void setMission(String mission) {
-        this.mission = mission;
     }
 
     public String getCollection() {
@@ -92,10 +62,6 @@ public class SpaceTelescopeImage {
 
     public List<ImageFile> getImageFiles() {
         return imageFiles;
-    }
-
-    public void setImageFiles(List<ImageFile> imageFiles) {
-        this.imageFiles = imageFiles;
     }
 
 }
