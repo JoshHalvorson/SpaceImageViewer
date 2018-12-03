@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
@@ -27,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import uk.co.senab.photoview.PhotoView;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int MAX_INDEX = 4277;
     public static final String HTTP_HUBBLESITE_ORG = "http://hubblesite.org/";
-    private ImageView imageView;
+    private PhotoView imageView;
     private TextView imageDesc, imageCredits, imageName;
     private ProgressBar progressBar;
     private String urls;
@@ -93,8 +96,14 @@ public class MainActivity extends AppCompatActivity {
                     urls = sb.toString();
                     urls = urls.replaceAll(", $", "");
                     String[] validUrls = urls.split(",");
+                    String thumbnailUrl = "";
                     Log.i("imageurlloaded", validUrls[validUrls.length - 1]);
-                    Glide.with(context).load(validUrls[validUrls.length - 1]).thumbnail(Glide.with(context).load(validUrls[1])).listener(new RequestListener<Drawable>() {
+                    if(validUrls.length == 1){
+                        thumbnailUrl = validUrls[0];
+                    }else{
+                        thumbnailUrl = validUrls[1];
+                    }
+                    Glide.with(context).load(validUrls[validUrls.length - 1]).thumbnail(Glide.with(context).load(thumbnailUrl)).apply(RequestOptions.placeholderOf(R.drawable.ic_placeholder_400x400)).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             Toast.makeText(context, "Error getting image", Toast.LENGTH_LONG).show();
@@ -105,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                             progressBar.setVisibility(View.GONE);
+                            imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                             return false;
                         }
                     }).into(imageView);
@@ -120,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SpaceTelescopeImage> call, Throwable t) {
-                Toast.makeText(context, "Error getting image", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Error getting image data", Toast.LENGTH_LONG).show();
             }
         });
     }

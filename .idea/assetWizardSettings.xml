@@ -28,9 +28,12 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="3278a6" />
-                            <entry key="outputName" value="ic_refresh_black_24dp" />
+                            <entry key="color" value="3a015c" />
+                            <entry key="height" value="400" />
+                            <entry key="outputName" value="ic_placeholder_400x400" />
+                            <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\joshh" />
+                            <entry key="width" value="400" />
                           </map>
                         </option>
                       </PersistentState>
