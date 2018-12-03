@@ -8,4 +8,5 @@ public interface SpaceTelescopeClient {
 
     @GET("api/v3/image/{id}")
     Call<SpaceTelescopeImage> getImageData(@Path("id") int id);
+
 }

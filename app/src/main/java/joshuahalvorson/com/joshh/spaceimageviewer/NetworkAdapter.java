@@ -28,16 +28,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import uk.co.senab.photoview.PhotoView;
 
 public class NetworkAdapter {
-
-
-
-
     private static Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(MainActivity.HTTP_HUBBLESITE_ORG)
             .addConverterFactory(GsonConverterFactory.create());
     private static SpaceTelescopeImage image;
 
-    public static SpaceTelescopeImage getImage(int id) {
+    public static SpaceTelescopeImage getImage(int id, final ImageIdsCallBack callBack) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
@@ -49,6 +45,7 @@ public class NetworkAdapter {
             @Override
             public void onResponse(Call<SpaceTelescopeImage> call, Response<SpaceTelescopeImage> response) {
                 image = response.body();
+                callBack.onFinish(image);
             }
             @Override
             public void onFailure(Call<SpaceTelescopeImage> call, Throwable t) {

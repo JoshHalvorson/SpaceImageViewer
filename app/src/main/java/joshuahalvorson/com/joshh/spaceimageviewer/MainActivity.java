@@ -78,36 +78,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getNewImage(int id) {
-        SpaceTelescopeImage image = NetworkAdapter.getImage(id);
-        if (image != null) {
-            List<ImageFile> imageUrls = image.getImageFiles();
-            String urls = "";
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < imageUrls.size(); i++) {
-                String url = imageUrls.get(i).getFileUrl();
-                if (url.substring(url.length() - 4, url.length()).equals(".jpg") || url.substring(url.length() - 4, url.length()).equals(".png")) {
-                    sb.append(url).append(",");
+        NetworkAdapter.getImage(id, new ImageIdsCallBack() {
+            @Override
+            public void onFinish(SpaceTelescopeImage image) {
+                if (image != null) {
+                    List<ImageFile> imageUrls = image.getImageFiles();
+                    String urls = "";
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < imageUrls.size(); i++) {
+                        String url = imageUrls.get(i).getFileUrl();
+                        if (url.substring(url.length() - 4, url.length()).equals(".jpg") || url.substring(url.length() - 4, url.length()).equals(".png")) {
+                            sb.append(url).append(",");
+                        }
+                    }
+                    urls = sb.toString();
+                    urls = urls.replaceAll(", $", "");
+                    String[] validUrls = urls.split(",");
+                    String thumbnailUrl;
+                    if (validUrls.length == 1) {
+                        thumbnailUrl = validUrls[0];
+                    } else {
+                        thumbnailUrl = validUrls[1];
+                    }
+                    PhotoView photoView = NetworkAdapter.displayImage(validUrls[validUrls.length - 1], thumbnailUrl, progressBar, context);
+                    imageHolderLayout.removeAllViews();
+                    imageHolderLayout.addView(photoView);
+                    imageDesc.setText(image.getDescription());
+                    if (imageDesc.getText().toString().equals("")) {
+                        imageDesc.setText(getString(R.string.image_desc_default_text));
+                    }
+                    imageName.setText(image.getName());
+                    imageCredits.setText(image.getCredits());
                 }
             }
-            urls = sb.toString();
-            urls = urls.replaceAll(", $", "");
-            String[] validUrls = urls.split(",");
-            String thumbnailUrl;
-            if (validUrls.length == 1) {
-                thumbnailUrl = validUrls[0];
-            } else {
-                thumbnailUrl = validUrls[1];
-            }
-            PhotoView photoView = NetworkAdapter.displayImage(validUrls[validUrls.length - 1], thumbnailUrl, progressBar, context);
-            imageHolderLayout.removeAllViews();
-            imageHolderLayout.addView(photoView);
-            imageDesc.setText(image.getDescription());
-            if (imageDesc.getText().toString().equals("")) {
-                imageDesc.setText(getString(R.string.image_desc_default_text));
-            }
-            imageName.setText(image.getName());
-            imageCredits.setText(image.getCredits());
-        }
+        });
     }
 
     @Override
