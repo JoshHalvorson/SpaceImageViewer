@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -29,8 +34,9 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="3a015c" />
-                            <entry key="height" value="400" />
-                            <entry key="outputName" value="ic_placeholder_400x400" />
+                            <entry key="height" value="450" />
+                            <entry key="opacityPercent" value="0" />
+                            <entry key="outputName" value="ic_lplaceholder_400x450" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\joshh" />
                             <entry key="width" value="400" />

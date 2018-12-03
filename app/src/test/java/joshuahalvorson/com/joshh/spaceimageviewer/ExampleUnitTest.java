@@ -1,4 +1,4 @@
-package com.example.joshh.spaceimageviewer;
+package joshuahalvorson.com.joshh.spaceimageviewer;
 
 import org.junit.Test;
 

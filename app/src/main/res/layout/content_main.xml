@@ -14,12 +14,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <uk.co.senab.photoview.PhotoView
-            android:id="@+id/image_view"
+        <LinearLayout
+            android:id="@+id/image_holder_layout"
             android:layout_width="match_parent"
-            android:layout_height="385dp"
-            android:adjustViewBounds="true"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
