@@ -1,27 +1,20 @@
 package joshuahalvorson.com.joshh.spaceimageviewer;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
@@ -77,12 +70,13 @@ public class HubbleImageAdapter extends RecyclerView.Adapter<HubbleImageAdapter.
             }
 
             public void bind(final HubbleImage hubbleImage, final OnItemClickListener listener) {
-                Glide.with(context)
+                Glide
+                        .with(context)
                         .load(image.getThumbnailImage())
+                        .thumbnail(.1f)
                         .apply(new RequestOptions()
-                                .placeholder(R.drawable.placeholder_50x50)
-                                .override(50,50)
-                                .fitCenter()
+                                .override(75,75)
+                                .centerCrop()
                         )
                         .into(imageView);
                 textView.setText(image.getName());

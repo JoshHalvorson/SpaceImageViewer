@@ -1,10 +1,13 @@
 package joshuahalvorson.com.joshh.spaceimageviewer;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-public class HubbleImage {
+public class HubbleImage implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -37,21 +40,30 @@ public class HubbleImage {
 
     private String fullResImage;
 
-    public String getLoadingImage() {
-        return loadingImage;
+    protected HubbleImage(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        description = in.readString();
+        credits = in.readString();
+        newsName = in.readString();
+        mission = in.readString();
+        collection = in.readString();
+        loadingImage = in.readString();
+        thumbnailImage = in.readString();
+        fullResImage = in.readString();
     }
 
-    public void setLoadingImage(String loadingImage) {
-        this.loadingImage = loadingImage;
-    }
+    public static final Creator<HubbleImage> CREATOR = new Creator<HubbleImage>() {
+        @Override
+        public HubbleImage createFromParcel(Parcel in) {
+            return new HubbleImage(in);
+        }
 
-    public String getFullResImage() {
-        return fullResImage;
-    }
-
-    public void setFullResImage(String fullResImage) {
-        this.fullResImage = fullResImage;
-    }
+        @Override
+        public HubbleImage[] newArray(int size) {
+            return new HubbleImage[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -59,14 +71,6 @@ public class HubbleImage {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getThumbnailImage() {
-        return thumbnailImage;
-    }
-
-    public void setThumbnailImage(String thumbnailImage) {
-        this.thumbnailImage = thumbnailImage;
     }
 
     public String getName() {
@@ -89,16 +93,82 @@ public class HubbleImage {
         return credits;
     }
 
+    public void setCredits(String credits) {
+        this.credits = credits;
+    }
+
     public String getNewsName() {
         return newsName;
+    }
+
+    public void setNewsName(String newsName) {
+        this.newsName = newsName;
+    }
+
+    public String getMission() {
+        return mission;
+    }
+
+    public void setMission(String mission) {
+        this.mission = mission;
     }
 
     public String getCollection() {
         return collection;
     }
 
+    public void setCollection(String collection) {
+        this.collection = collection;
+    }
+
     public List<ImageFile> getImageFiles() {
         return imageFiles;
     }
 
+    public void setImageFiles(List<ImageFile> imageFiles) {
+        this.imageFiles = imageFiles;
+    }
+
+    public String getLoadingImage() {
+        return loadingImage;
+    }
+
+    public void setLoadingImage(String loadingImage) {
+        this.loadingImage = loadingImage;
+    }
+
+    public String getThumbnailImage() {
+        return thumbnailImage;
+    }
+
+    public void setThumbnailImage(String thumbnailImage) {
+        this.thumbnailImage = thumbnailImage;
+    }
+
+    public String getFullResImage() {
+        return fullResImage;
+    }
+
+    public void setFullResImage(String fullResImage) {
+        this.fullResImage = fullResImage;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeString(credits);
+        dest.writeString(newsName);
+        dest.writeString(mission);
+        dest.writeString(collection);
+        dest.writeString(loadingImage);
+        dest.writeString(thumbnailImage);
+        dest.writeString(fullResImage);
+    }
 }
