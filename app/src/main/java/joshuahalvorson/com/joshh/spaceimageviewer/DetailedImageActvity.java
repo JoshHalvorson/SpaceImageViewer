@@ -2,9 +2,12 @@ package joshuahalvorson.com.joshh.spaceimageviewer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,11 +27,14 @@ public class DetailedImageActvity extends AppCompatActivity {
     private ImageView imageView;
     private ProgressBar progressBar;
 
+    Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_image_actvity);
 
+        context = this;
         HubbleImage image = getIntent().getParcelableExtra(MainActivity.IMAGE_DATA_KEY);
         imageDetailsLayout = findViewById(R.id.image_details_layout);
         imageView = findViewById(R.id.image_view);
@@ -41,15 +47,27 @@ public class DetailedImageActvity extends AppCompatActivity {
     }
 
     private void generateView(HubbleImage image){
-        TextView tv = new TextView(DetailedImageActvity.this);
+        TextView titleView = new TextView(this);
+        TextView descView = new TextView(this);
+        TextView creditsView = new TextView(this);
+        titleView.setText(image.getName());
+        titleView.setTextSize(25);
+        titleView.setTypeface(Typeface.DEFAULT_BOLD);
+        titleView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         if(image.getDescription() == null){
-            tv.setText(getString(R.string.image_desc_null_text));
+            descView.setText(getString(R.string.image_desc_null_text));
         }else{
-            tv.setText(image.getDescription());
+            descView.setText(image.getDescription());
         }
-        tv.setTextSize(17);
-        tv.setTextColor(Color.BLACK);
-        imageDetailsLayout.addView(tv);
+        descView.setText(descView.getText().toString());
+        descView.setTextSize(17);
+        descView.setTextColor(Color.BLACK);
+        creditsView.setText(image.getCredits());
+        creditsView.setTextSize(8);
+        creditsView.setTypeface(null, Typeface.ITALIC);
+        imageDetailsLayout.addView(titleView);
+        imageDetailsLayout.addView(descView);
+        imageDetailsLayout.addView(creditsView);
         Glide
                 .with(DetailedImageActvity.this)
                 .load(image.getFullResImage())
