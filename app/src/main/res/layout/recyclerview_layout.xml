@@ -9,8 +9,9 @@
     android:layout_marginRight="10dp">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/colorAccent"
         app:cardCornerRadius="10dp">
 
@@ -21,8 +22,9 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="100dp"
-                android:layout_height="match_parent" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="left" />
 
             <TextView
                 android:id="@+id/textView"
