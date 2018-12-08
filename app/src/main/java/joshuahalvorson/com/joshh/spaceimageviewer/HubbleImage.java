@@ -4,8 +4,11 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-public class SpaceTelescopeImage {
+public class HubbleImage {
 
+    @SerializedName("id")
+    @Expose
+    private int id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -27,6 +30,34 @@ public class SpaceTelescopeImage {
     @SerializedName("image_files")
     @Expose
     private List<ImageFile> imageFiles = null;
+
+    private String thumbnailImage;
+
+    private String fullResImage;
+
+    public String getFullResImage() {
+        return fullResImage;
+    }
+
+    public void setFullResImage(String fullResImage) {
+        this.fullResImage = fullResImage;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getThumbnailImage() {
+        return thumbnailImage;
+    }
+
+    public void setThumbnailImage(String thumbnailImage) {
+        this.thumbnailImage = thumbnailImage;
+    }
 
     public String getName() {
         return name;
@@ -54,10 +85,6 @@ public class SpaceTelescopeImage {
 
     public String getCollection() {
         return collection;
-    }
-
-    public void setCollection(String collection) {
-        this.collection = collection;
     }
 
     public List<ImageFile> getImageFiles() {
