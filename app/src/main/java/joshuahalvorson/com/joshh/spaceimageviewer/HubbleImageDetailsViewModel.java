@@ -3,7 +3,6 @@ package joshuahalvorson.com.joshh.spaceimageviewer;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.media.Image;
 import android.util.Log;
 
 import java.util.List;
@@ -50,6 +49,7 @@ public class HubbleImageDetailsViewModel extends ViewModel {
                         for (int i = 0; i < imgUrls.size(); i++) {
                             String url = imgUrls.get(i).getFileUrl();
                             if (url.contains(".jpg") || url.contains(".png")) {
+                                //Log.i("imagesize", Integer.toString(imgUrls.get(i).getFileSize()) + " - url: " + imgUrls.get(i).getFileUrl());
                                 sb.append(url).append(",");
                             }
                         }
@@ -57,7 +57,9 @@ public class HubbleImageDetailsViewModel extends ViewModel {
                         urls = urls.replaceAll(", $", "");
                         String[] validUrls = urls.split(",");
                         singleImage.setThumbnailImage(validUrls[0]);
+                        singleImage.setLoadingImage(validUrls[0]);
                         singleImage.setFullResImage(validUrls[validUrls.length - 1]);
+                        //Log.i("imageData", "loadingImage: " + singleImage.getLoadingImage() + " thumbnailImage: " + singleImage.getThumbnailImage() + " fullresImage: " + singleImage.getFullResImage());
                     }
                 }
 

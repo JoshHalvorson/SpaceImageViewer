@@ -31,9 +31,19 @@ public class HubbleImage {
     @Expose
     private List<ImageFile> imageFiles = null;
 
+    private String loadingImage;
+
     private String thumbnailImage;
 
     private String fullResImage;
+
+    public String getLoadingImage() {
+        return loadingImage;
+    }
+
+    public void setLoadingImage(String loadingImage) {
+        this.loadingImage = loadingImage;
+    }
 
     public String getFullResImage() {
         return fullResImage;

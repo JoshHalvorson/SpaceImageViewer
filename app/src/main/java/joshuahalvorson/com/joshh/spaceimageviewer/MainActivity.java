@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -27,7 +28,12 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getImageList().observe(this, new Observer<List<HubbleImage>>() {
             @Override
             public void onChanged(@Nullable List<HubbleImage> images) {
-                adapter = new HubbleImageAdapter(MainActivity.this, images);
+                adapter = new HubbleImageAdapter(MainActivity.this, images, new HubbleImageAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(HubbleImage image) {
+                        Toast.makeText(MainActivity.this, "clicked on " + image.getName(), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 recyclerView.setAdapter(adapter);
             }
         });
