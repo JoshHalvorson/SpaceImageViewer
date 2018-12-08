@@ -1,17 +1,21 @@
 package joshuahalvorson.com.joshh.spaceimageviewer;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String IMAGE_DATA_KEY = "image_data";
     private RecyclerView recyclerView;
     private HubbleImageAdapter adapter;
 
@@ -31,7 +35,10 @@ public class MainActivity extends AppCompatActivity {
                 adapter = new HubbleImageAdapter(MainActivity.this, images, new HubbleImageAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(HubbleImage image) {
-                        Toast.makeText(MainActivity.this, "clicked on " + image.getName(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "clicked on " + image.getDescription(), Toast.LENGTH_LONG).show();
+                        Intent detailedImageIntent = new Intent(MainActivity.this, DetailedImageActvity.class);
+                        detailedImageIntent.putExtra(IMAGE_DATA_KEY, image);
+                        startActivity(detailedImageIntent);
                     }
                 });
                 recyclerView.setAdapter(adapter);
