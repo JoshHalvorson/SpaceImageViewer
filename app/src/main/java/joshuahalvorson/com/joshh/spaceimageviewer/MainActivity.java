@@ -36,11 +36,9 @@ public class MainActivity extends AppCompatActivity {
             allImagesFragment = new AllImagesFragment();
             ft.add(R.id.all_images_container, allImagesFragment, TAG_LIST_FRAGMENT);
             ft.commit();
-            //Log.i("sdadsaD", Integer.toString(fm.getBackStackEntryCount()));
         }else{
             allImagesFragment = (AllImagesFragment)fm.findFragmentByTag(TAG_LIST_FRAGMENT);
         }
-        //allImagesFragment.populateRecyclerView();
     }
 
     @Override
