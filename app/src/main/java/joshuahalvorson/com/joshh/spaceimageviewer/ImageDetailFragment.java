@@ -28,9 +28,10 @@ import androidx.fragment.app.Fragment;
 
 public class ImageDetailFragment extends Fragment {
     private LinearLayout imageDetailsLayout;
+    private TextView titleView, descView, creditsView;
     private ImageView imageView;
     private ProgressBar progressBar;
-    private Context context = null;
+    private Context mContext;
 
     public ImageDetailFragment(){
 
@@ -42,6 +43,7 @@ public class ImageDetailFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        mContext = context;
     }
 
     // This event fires 2nd, before views are created for the fragment
@@ -50,8 +52,6 @@ public class ImageDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = this.getActivity();
-        Log.i("asdadsads", "sdadasd");
     }
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
@@ -59,7 +59,7 @@ public class ImageDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.image_details_fragment_layout, container, false);
+        return inflater.inflate(R.layout.activity_detailed_image_actvity, container, false);
     }
 
     // This event is triggered soon after onCreateView().
@@ -70,6 +70,9 @@ public class ImageDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         imageDetailsLayout = view.findViewById(R.id.image_details_layout);
         imageView = view.findViewById(R.id.image_view);
+        titleView = view.findViewById(R.id.title_text);
+        descView = view.findViewById(R.id.desc_text);
+        creditsView = view.findViewById(R.id.credits_text);
         progressBar = view.findViewById(R.id.progress_bar);
     }
 
@@ -86,15 +89,7 @@ public class ImageDetailFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-    }
-
-
-
-    public void setViewData(HubbleImage image){
-        Log.i("asdadsads", "sdadasd");
-        TextView titleView = new TextView(context);
-        TextView descView = new TextView(context);
-        TextView creditsView = new TextView(context);
+        HubbleImage image = getArguments().getParcelable("image");
         titleView.setText(image.getName());
         titleView.setTextSize(25);
         titleView.setTypeface(Typeface.DEFAULT_BOLD);
@@ -110,27 +105,53 @@ public class ImageDetailFragment extends Fragment {
         creditsView.setText(image.getCredits());
         creditsView.setTextSize(8);
         creditsView.setTypeface(null, Typeface.ITALIC);
-        imageDetailsLayout.addView(titleView);
-        imageDetailsLayout.addView(descView);
-        imageDetailsLayout.addView(creditsView);
         Glide
-                .with(context)
-                .load(image.getFullResImage())
-                .thumbnail(.1f)
-                .apply(new RequestOptions()
-                        .centerCrop())
-                .listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        return false;
-                    }
+            .with(getActivity())
+            .load(image.getFullResImage())
+            .thumbnail(.1f)
+            .apply(new RequestOptions()
+                    .centerCrop())
+            .listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    return false;
+                }
 
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        progressBar.setVisibility(View.GONE);
-                        return false;
-                    }
-                })
-                .into(imageView);
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    progressBar.setVisibility(View.GONE);
+                    return false;
+                }
+            })
+            .into(imageView);
+    }
+
+
+
+    public void setViewData(HubbleImage image){
+        Log.i("asdadsads", "sdadasd");
+
+        if(getActivity() != null){
+            Glide
+                    .with(getActivity())
+                    .load(image.getFullResImage())
+                    .thumbnail(.1f)
+                    .apply(new RequestOptions()
+                            .centerCrop())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            progressBar.setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
+                    .into(imageView);
+        }
+
     }
 }

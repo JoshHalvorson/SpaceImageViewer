@@ -34,10 +34,14 @@ public class AllImagesFragment extends Fragment {
                 public void onItemClick(HubbleImage image) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     imageDetailFragment = new ImageDetailFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("image", image);
+                    imageDetailFragment.setArguments(bundle);
                     ft.add(R.id.image_details_container, imageDetailFragment, "image_details_key");
                     ft.addToBackStack(null);
                     ft.commit();
                     //Log.i("sdadsaD", Integer.toString(getChildFragmentManager().getBackStackEntryCount()));
+
                     //imageDetailFragment.setViewData(image);
                 }
             });
