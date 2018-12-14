@@ -11,43 +11,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.widget.Toast;
+
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final String IMAGE_DATA_KEY = "image_data";
-    private static final String TAG_LIST_FRAGMENT = "TAG_LIST_FRAGMENT";
-
-    AllImagesFragment allImagesFragment;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final FragmentManager fm = getSupportFragmentManager();
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
 
-        if(savedInstanceState == null){
-            FragmentTransaction ft = fm.beginTransaction();
-            allImagesFragment = new AllImagesFragment();
-            ft.add(R.id.all_images_container, allImagesFragment, TAG_LIST_FRAGMENT);
-            ft.commit();
-        }else{
-            allImagesFragment = (AllImagesFragment)fm.findFragmentByTag(TAG_LIST_FRAGMENT);
-        }
-    }
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new AllImagesFragment(), "All Images");
 
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
-        }
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 }

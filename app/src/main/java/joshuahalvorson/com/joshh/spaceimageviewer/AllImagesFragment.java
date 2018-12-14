@@ -38,7 +38,7 @@ public class AllImagesFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("image", image);
                     imageDetailFragment.setArguments(bundle);
-                    ft.add(R.id.image_details_container, imageDetailFragment, "image_details_key");
+                    ft.replace(R.id.fragment_container, imageDetailFragment, "image_details_key");
                     ft.addToBackStack(null);
                     ft.commit();
                 }
