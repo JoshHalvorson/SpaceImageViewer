@@ -2,7 +2,6 @@ package joshuahalvorson.com.joshh.spaceimageviewer;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class AllImagesFragment extends Fragment {
+public class ImagesFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private HubbleImageAdapter adapter;
@@ -47,7 +46,7 @@ public class AllImagesFragment extends Fragment {
         }
     };
 
-    public AllImagesFragment(){
+    public ImagesFragment(){
 
     }
 
@@ -65,7 +64,7 @@ public class AllImagesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.all_images_fragment_layout, container, false);
+        return inflater.inflate(R.layout.images_fragment_layout, container, false);
     }
 
     @Override
