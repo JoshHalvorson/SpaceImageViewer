@@ -30,6 +30,14 @@ public class HubbleImageDetailsRepository {
             @Override
             public void onResponse(Call<List<HubbleImage>> call, Response<List<HubbleImage>> response) {
                 imagesList = response.body();
+
+                //used to display specific image. thumbnails dont display when doing this
+                /*for(int i = imagesList.size() - 1; i > 0; i--){
+                    if(imagesList.get(i).getId() != 1002){
+                        imagesList.remove(i);
+                    }
+                }*/
+
                 if (imagesList != null) {
                     loadSingleImageData(imagesList);
                 }
@@ -58,12 +66,14 @@ public class HubbleImageDetailsRepository {
                     if (imgUrls != null) {
                         for (int i = 0; i < imgUrls.size(); i++) {
                             String url = imgUrls.get(i).getFileUrl();
-                            if (url.contains(".jpg") || url.contains(".png")) {
+                            if (url.contains(".jpg") || url.contains(".png") || url.contains(".gif")) {
                                 //Log.i("imagesize", Integer.toString(imgUrls.get(i).getFileSize()) + " - url: " + imgUrls.get(i).getFileUrl());
                                 sb.append(url).append(",");
                             }
                         }
-                        String[] validUrls = sb.toString().replaceAll(", $", "").split(",");
+                        String[] validUrls = sb.toString()
+                                .replaceAll(", $", "")
+                                .split(",");
                         singleImage.setThumbnailImage(validUrls[0]);
                         singleImage.setLoadingImage(validUrls[0]);
                         singleImage.setFullResImage(validUrls[validUrls.length - 1]);

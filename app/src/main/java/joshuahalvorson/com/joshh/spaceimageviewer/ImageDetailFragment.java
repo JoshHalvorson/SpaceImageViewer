@@ -105,6 +105,10 @@ public class ImageDetailFragment extends Fragment {
         creditsView.setText(image.getCredits());
         creditsView.setTextSize(8);
         creditsView.setTypeface(null, Typeface.ITALIC);
+        setViewData(image);
+    }
+
+    private void loadImageIntoView(HubbleImage image) {
         Glide
             .with(getActivity())
             .load(image.getFullResImage())
@@ -126,31 +130,25 @@ public class ImageDetailFragment extends Fragment {
             .into(imageView);
     }
 
+    private void loadGifIntoView(HubbleImage image) {
+        Glide
+                .with(getActivity())
+                .asGif()
+                .load(image.getFullResImage())
+                .thumbnail(.1f)
+                .apply(new RequestOptions()
+                        .centerCrop())
+                .into(imageView);
+    }
 
 
     public void setViewData(HubbleImage image){
-        Log.i("asdadsads", "sdadasd");
-
         if(getActivity() != null){
-            Glide
-                    .with(getActivity())
-                    .load(image.getFullResImage())
-                    .thumbnail(.1f)
-                    .apply(new RequestOptions()
-                            .centerCrop())
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            progressBar.setVisibility(View.GONE);
-                            return false;
-                        }
-                    })
-                    .into(imageView);
+            if(image.getFullResImage().contains(".gif")){
+                loadGifIntoView(image);
+            }else{
+                loadImageIntoView(image);
+            }
         }
 
     }
