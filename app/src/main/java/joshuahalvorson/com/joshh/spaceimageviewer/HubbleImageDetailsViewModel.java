@@ -28,4 +28,8 @@ public class HubbleImageDetailsViewModel extends ViewModel {
     public MutableLiveData<List<HubbleImage>> loadHubbleImages() {
         return HubbleImageDetailsRepository.loadHubbleImages();
     }
+
+    public void searchList(String search){
+        HubbleImageDetailsRepository.searchImageList(search);
+    }
 }
