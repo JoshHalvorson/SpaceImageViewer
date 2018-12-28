@@ -30,14 +30,7 @@ public class HubbleImageDetailsRepository {
             @Override
             public void onResponse(Call<List<HubbleImage>> call, Response<List<HubbleImage>> response) {
                 imagesList = response.body();
-
-                //used to display specific image. thumbnails dont display when doing this
-                /*for(int i = imagesList.size() - 1; i > 0; i--){
-                    if(imagesList.get(i).getId() != 1002){
-                        imagesList.remove(i);
-                    }
-                }*/
-
+                //searchImageList(imagesList, "Andromeda");
                 if (imagesList != null) {
                     loadSingleImageData(imagesList);
                 }
@@ -50,6 +43,23 @@ public class HubbleImageDetailsRepository {
             }
         });
         return imageList;
+    }
+
+    //used to display specific image. thumbnails dont display when doing this.
+    //thumbnails start displaying once you swipe the list.
+    private static void searchImageList(List<HubbleImage> list, String string) {
+        for(int i = list.size() - 1; i >= 0; i--){
+            if(!list.get(i).getName().contains(string)){
+                imagesList.remove(i);
+            }
+        }
+    }
+    private static void searchImageList(List<HubbleImage> list, int idToDisplay) {
+        for(int i = list.size() - 1; i >= 0; i--){
+            if(list.get(i).getId() != idToDisplay){
+                imagesList.remove(i);
+            }
+        }
     }
 
     public static void loadSingleImageData(List<HubbleImage> list){
