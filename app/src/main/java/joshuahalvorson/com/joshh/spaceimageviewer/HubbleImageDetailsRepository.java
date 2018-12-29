@@ -2,6 +2,7 @@ package joshuahalvorson.com.joshh.spaceimageviewer;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
@@ -14,8 +15,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HubbleImageDetailsRepository {
 
     private static MutableLiveData<List<HubbleImage>> imageList;
+    private static MutableLiveData<List<HubbleImage>> allImageList;
     private static List<HubbleImage> imagesList;
     private static HubbleImage imageData;
+    private static List<HubbleImage> searchList = new ArrayList<>();
 
     private static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(HubbleImageClient.BASE_URL)
@@ -26,6 +29,7 @@ public class HubbleImageDetailsRepository {
     public static MutableLiveData<List<HubbleImage>> loadHubbleImages() {
         Call<List<HubbleImage>> call = api.getAllImages();
         imageList = new MutableLiveData<>();
+        allImageList = new MutableLiveData<>();
         call.enqueue(new Callback<List<HubbleImage>>() {
             @Override
             public void onResponse(Call<List<HubbleImage>> call, Response<List<HubbleImage>> response) {
@@ -35,6 +39,7 @@ public class HubbleImageDetailsRepository {
                     loadSingleImageData(imagesList);
                 }
                 imageList.setValue(imagesList);
+                allImageList.setValue(imagesList);
             }
 
             @Override
@@ -48,19 +53,24 @@ public class HubbleImageDetailsRepository {
     //used to display specific image. thumbnails dont display when doing this.
     //thumbnails start displaying once you swipe the list.
     public static void searchImageList(String search) {
+        searchList.clear();
         searchImageList(imagesList, search);
     }
     private static void searchImageList(List<HubbleImage> list, String string) {
         for(int i = list.size() - 1; i >= 0; i--){
-            if(!list.get(i).getName().contains(string)){
-                imagesList.remove(i);
+            if(list.get(i).getName().contains(string)){
+                searchList.add(list.get(i));
+                imageList.setValue(searchList);
+                if(imageList == null){
+                    imageList.setValue(imagesList);
+                }
             }
         }
     }
     private static void searchImageList(List<HubbleImage> list, int idToDisplay) {
         for(int i = list.size() - 1; i >= 0; i--){
             if(list.get(i).getId() != idToDisplay){
-                imagesList.remove(i);
+                searchList.add(list.get(i));
             }
         }
     }
