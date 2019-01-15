@@ -1,4 +1,4 @@
-package joshuahalvorson.com.joshh.spaceimageviewer;
+package joshuahalvorson.com.joshh.spaceimageviewer.image;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -1,11 +1,14 @@
-package joshuahalvorson.com.joshh.spaceimageviewer;
+package joshuahalvorson.com.joshh.spaceimageviewer.adapter;
 
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import joshuahalvorson.com.joshh.spaceimageviewer.ImagesFragment.OnListFragmentInteractionListener;
+
+import joshuahalvorson.com.joshh.spaceimageviewer.image.HubbleImage;
+import joshuahalvorson.com.joshh.spaceimageviewer.R;
+import joshuahalvorson.com.joshh.spaceimageviewer.view.fragment.ImagesFragment.OnListFragmentInteractionListener;
 import java.util.List;
 
 public class MyHubbleImageRecyclerViewAdapter extends RecyclerView.Adapter<MyHubbleImageRecyclerViewAdapter.ViewHolder> {

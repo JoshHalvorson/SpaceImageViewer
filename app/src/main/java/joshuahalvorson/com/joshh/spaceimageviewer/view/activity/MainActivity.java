@@ -1,4 +1,4 @@
-package joshuahalvorson.com.joshh.spaceimageviewer;
+package joshuahalvorson.com.joshh.spaceimageviewer.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.viewpager.widget.ViewPager;
+import joshuahalvorson.com.joshh.spaceimageviewer.image.HubbleImage;
+import joshuahalvorson.com.joshh.spaceimageviewer.view.fragment.ImagesFragment;
+import joshuahalvorson.com.joshh.spaceimageviewer.R;
+import joshuahalvorson.com.joshh.spaceimageviewer.adapter.ViewPagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity implements ImagesFragment.OnListFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements ImagesFragment.OnListFragmentInteractionListener {
     public static final String IMAGE_DATA_KEY = "image_data";
 
     @Override

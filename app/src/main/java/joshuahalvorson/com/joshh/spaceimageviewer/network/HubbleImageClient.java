@@ -1,7 +1,8 @@
-package joshuahalvorson.com.joshh.spaceimageviewer;
+package joshuahalvorson.com.joshh.spaceimageviewer.network;
 
 import java.util.List;
 
+import joshuahalvorson.com.joshh.spaceimageviewer.image.HubbleImage;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

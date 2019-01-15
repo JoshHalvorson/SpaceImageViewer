@@ -1,4 +1,4 @@
-package joshuahalvorson.com.joshh.spaceimageviewer;
+package joshuahalvorson.com.joshh.spaceimageviewer.adapter;
 
 import java.util.ArrayList;
 

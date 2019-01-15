@@ -1,4 +1,4 @@
-package joshuahalvorson.com.joshh.spaceimageviewer;
+package joshuahalvorson.com.joshh.spaceimageviewer.image;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
