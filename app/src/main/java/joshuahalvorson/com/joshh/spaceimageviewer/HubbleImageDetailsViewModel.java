@@ -17,16 +17,16 @@ public class HubbleImageDetailsViewModel extends ViewModel {
 
     private MutableLiveData<List<HubbleImage>> imageList;
 
-    public LiveData<List<HubbleImage>> getImageList(){
+    public LiveData<List<HubbleImage>> getImageList(int page){
         if(imageList == null){
             imageList = new MutableLiveData<>();
-            imageList = loadHubbleImages();
+            imageList = loadHubbleImages(page);
         }
         return imageList;
     }
 
-    public MutableLiveData<List<HubbleImage>> loadHubbleImages() {
-        return HubbleImageDetailsRepository.loadHubbleImages();
+    public MutableLiveData<List<HubbleImage>> loadHubbleImages(int page) {
+        return HubbleImageDetailsRepository.loadHubbleImages(page);
     }
 
     public void searchList(String search){

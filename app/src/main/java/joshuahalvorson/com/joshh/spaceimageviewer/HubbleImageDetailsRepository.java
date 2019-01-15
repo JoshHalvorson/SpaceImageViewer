@@ -26,8 +26,8 @@ public class HubbleImageDetailsRepository {
             .build();
     private static HubbleImageClient api = retrofit.create(HubbleImageClient.class);
 
-    public static MutableLiveData<List<HubbleImage>> loadHubbleImages() {
-        Call<List<HubbleImage>> call = api.getAllImages();
+    public static MutableLiveData<List<HubbleImage>> loadHubbleImages(int page) {
+        Call<List<HubbleImage>> call = api.getAllImages(page);
         imageList = new MutableLiveData<>();
         allImageList = new MutableLiveData<>();
         call.enqueue(new Callback<List<HubbleImage>>() {

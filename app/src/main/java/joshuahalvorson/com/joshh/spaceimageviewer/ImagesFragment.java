@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ImagesFragment extends Fragment {
 
+    public static int currentPage = 1;
+
     private RecyclerView recyclerView;
     private HubbleImageAdapter adapter;
     private Context context;
@@ -90,7 +92,7 @@ public class ImagesFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel.getImageList().observe(this, observer);
+        viewModel.getImageList(currentPage).observe(this, observer);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,11 +101,4 @@ public class ImagesFragment extends Fragment {
             }
         });
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        viewModel.getImageList().removeObserver(observer);
-    }
-
 }
