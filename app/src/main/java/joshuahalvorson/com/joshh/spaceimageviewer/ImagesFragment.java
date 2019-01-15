@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import java.util.List;
 
@@ -25,6 +27,8 @@ public class ImagesFragment extends Fragment {
     private Context context;
     private ImageDetailFragment imageDetailFragment;
     private HubbleImageDetailsViewModel viewModel;
+    private Button searchButton;
+    private EditText searchText;
 
     Observer<List<HubbleImage>> observer = new Observer<List<HubbleImage>>() {
         @Override
@@ -74,6 +78,8 @@ public class ImagesFragment extends Fragment {
         recyclerView = view.findViewById(R.id.all_images_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setHasFixedSize(true);
+        searchButton = view.findViewById(R.id.search_button);
+        searchText = view.findViewById(R.id.search_list);
     }
 
     @Override
@@ -85,6 +91,13 @@ public class ImagesFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         viewModel.getImageList().observe(this, observer);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.searchList(searchText.getText().toString());
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
