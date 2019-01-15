@@ -20,8 +20,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new FavoritesFragment(), "Favorite Images");
-        viewPagerAdapter.addFragment(new ImagesFragment(), "All Images");
+        //viewPagerAdapter.addFragment(new ImagesFragment(), "All Images");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
