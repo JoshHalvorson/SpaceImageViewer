@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements ImagePreviewsFrag
     }
 
     @Override
-    public void onListFragmentInteraction(ImagePreview item) {
+    public void onImagePreviewsFragmentInteraction(ImagePreview item) {
         Log.i("imagePressed", item.getName() + " - " + Integer.toString(item.getId()));
     }
 }

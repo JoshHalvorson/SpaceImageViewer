@@ -113,7 +113,7 @@ public class ImagePreviewsFragment extends Fragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(ImagePreview item);
+        void onImagePreviewsFragmentInteraction(ImagePreview item);
     }
 
     private class getImagePreviews extends AsyncTask<Void, Integer, List<ImagePreview>>{
