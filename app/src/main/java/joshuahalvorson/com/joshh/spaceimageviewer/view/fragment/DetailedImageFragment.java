@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -31,6 +33,7 @@ import joshuahalvorson.com.joshh.spaceimageviewer.image.ImagePreview;
 import joshuahalvorson.com.joshh.spaceimageviewer.viewmodel.HubbleImageClientViewModel;
 
 public class DetailedImageFragment extends Fragment {
+    private static final String TAG = "DetailedImageFragment";
     private OnListFragmentInteractionListener mListener;
 
     private ImageView image;
@@ -103,9 +106,21 @@ public class DetailedImageFragment extends Fragment {
         @Override
         protected void onPostExecute(HubbleImage hubbleImage) {
             super.onPostExecute(hubbleImage);
+
             List<ImageFile> imageFiles = hubbleImage.getImageFiles();
-            String imageUrl = imageFiles.get(imageFiles.size() - 1).getFileUrl();
-            if(imageFiles != null){
+            List<ImageFile> usuableImageFiles = new ArrayList<>();
+            if(imageFiles == null){
+                loadingCircle.setVisibility(View.GONE);
+                Toast.makeText(getContext(), "No image to load", Toast.LENGTH_SHORT).show();
+            }else{
+                for(ImageFile imageFile : imageFiles){
+                    if(imageFile.getFileUrl().contains(".jpg") || imageFile.getFileUrl().contains(".png")
+                            || imageFile.getFileUrl().contains(".gif")){
+                        usuableImageFiles.add(imageFile);
+                    }
+                }
+                String imageUrl = usuableImageFiles.get(usuableImageFiles.size() - 1).getFileUrl();
+                Log.i(TAG, imageUrl);
                 Glide
                         .with(getActivity())
                         .load(imageUrl)
