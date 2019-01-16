@@ -34,6 +34,6 @@ public class MainActivity extends AppCompatActivity implements ImagesFragment.On
 
     @Override
     public void onListFragmentInteraction(ImagePreview item) {
-        Log.i("imagePressed", item.getName());
+        Log.i("imagePressed", item.getName() + " - " + Integer.toString(item.getId()));
     }
 }

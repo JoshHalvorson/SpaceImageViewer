@@ -24,6 +24,17 @@
             android:layout_weight="1"
             android:text="Previous page" />
 
+        <TextView
+            android:id="@+id/page_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="1"
+            android:text="1"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="30sp" />
+
         <Button
             android:id="@+id/next_page_button"
             android:layout_width="0dp"
