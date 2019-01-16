@@ -54,8 +54,8 @@ public class ImagesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        
         Context context = view.getContext();
-
         imagePreviews = new ArrayList<>();
 
         adapter = new MyHubbleImageRecyclerViewAdapter(imagePreviews, mListener);
@@ -68,15 +68,8 @@ public class ImagesFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Button button = getView().findViewById(R.id.update);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new getImagePreviews().execute();
-            }
-        });
+        new getImagePreviews().execute();
 
-        //
     }
 
     @Override
