@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import joshuahalvorson.com.joshh.spaceimageviewer.R;
 import joshuahalvorson.com.joshh.spaceimageviewer.image.ImagePreview;
-import joshuahalvorson.com.joshh.spaceimageviewer.view.fragment.ImagesFragment.OnListFragmentInteractionListener;
+import joshuahalvorson.com.joshh.spaceimageviewer.view.fragment.ImagePreviewsFragment.OnListFragmentInteractionListener;
 import java.util.List;
 
 public class MyHubbleImageRecyclerViewAdapter extends RecyclerView.Adapter<MyHubbleImageRecyclerViewAdapter.ViewHolder> {

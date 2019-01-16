@@ -22,7 +22,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImagesFragment extends Fragment {
+public class ImagePreviewsFragment extends Fragment {
     private static final int FIRST_PAGE = 1;
     private static final int LAST_PAGE = 168;
     private int currentPage = 1;
@@ -36,7 +36,7 @@ public class ImagesFragment extends Fragment {
     private Button prevPageButton, nextPageButton;
     private TextView pageNumber;
 
-    public ImagesFragment() {
+    public ImagePreviewsFragment() {
     }
 
 
@@ -47,7 +47,7 @@ public class ImagesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.images_fragment_layout, container, false);
+        return inflater.inflate(R.layout.images_preview_fragment_layout, container, false);
     }
 
     @Override
