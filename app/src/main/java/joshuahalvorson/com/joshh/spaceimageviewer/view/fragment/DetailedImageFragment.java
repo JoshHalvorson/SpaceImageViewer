@@ -3,11 +3,15 @@ package joshuahalvorson.com.joshh.spaceimageviewer.view.fragment;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Explode;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -116,6 +120,7 @@ public class DetailedImageFragment extends Fragment {
                 for(ImageFile imageFile : imageFiles){
                     if(imageFile.getFileUrl().contains(".jpg") || imageFile.getFileUrl().contains(".png")
                             || imageFile.getFileUrl().contains(".gif")){
+
                         usuableImageFiles.add(imageFile);
                     }
                 }
@@ -128,14 +133,18 @@ public class DetailedImageFragment extends Fragment {
                         .listener(new RequestListener<Drawable>() {
                             @Override
                             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                Toast.makeText(getContext(), "Image failed to load", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(
+                                                getContext(),
+                                                "Image failed to load",
+                                                Toast.LENGTH_SHORT).show();
                                 loadingCircle.setVisibility(View.GONE);
                                 image.setVisibility(View.GONE);
                                 return false;
                             }
 
                             @Override
-                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource,
+                                                           boolean isFirstResource) {
                                 loadingCircle.setVisibility(View.GONE);
                                 image.setVisibility(View.VISIBLE);
                                 return false;

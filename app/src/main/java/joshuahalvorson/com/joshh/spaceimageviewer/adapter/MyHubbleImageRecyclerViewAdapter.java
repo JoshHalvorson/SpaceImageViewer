@@ -37,7 +37,7 @@ public class MyHubbleImageRecyclerViewAdapter extends RecyclerView.Adapter<MyHub
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onImagePreviewsFragmentInteraction(holder.image);
+                    mListener.onImagePreviewsFragmentInteraction(holder.image, holder.imageName);
                 }
             }
         });
@@ -48,9 +48,9 @@ public class MyHubbleImageRecyclerViewAdapter extends RecyclerView.Adapter<MyHub
         return imagePreviews.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView imageName;
+        public TextView imageName;
         public ImagePreview image;
 
         public ViewHolder(View view) {

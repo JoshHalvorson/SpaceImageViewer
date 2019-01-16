@@ -23,6 +23,7 @@
 
         <TextView
             android:id="@+id/image_name_text"
+            android:transitionName="image_name_transition"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif-thin"
