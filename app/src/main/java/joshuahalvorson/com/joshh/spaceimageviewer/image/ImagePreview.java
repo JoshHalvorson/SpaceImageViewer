@@ -3,7 +3,9 @@ package joshuahalvorson.com.joshh.spaceimageviewer.image;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ImagePreview {
+import java.io.Serializable;
+
+public class ImagePreview implements Serializable {
     @SerializedName("id")
     @Expose
     private int id;

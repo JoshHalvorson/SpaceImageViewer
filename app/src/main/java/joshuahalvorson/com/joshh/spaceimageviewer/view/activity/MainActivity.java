@@ -7,13 +7,15 @@ import android.util.Log;
 
 import androidx.viewpager.widget.ViewPager;
 import joshuahalvorson.com.joshh.spaceimageviewer.image.ImagePreview;
+import joshuahalvorson.com.joshh.spaceimageviewer.view.fragment.DetailedImageFragment;
 import joshuahalvorson.com.joshh.spaceimageviewer.view.fragment.ImagePreviewsFragment;
 import joshuahalvorson.com.joshh.spaceimageviewer.R;
 import joshuahalvorson.com.joshh.spaceimageviewer.adapter.ViewPagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity implements ImagePreviewsFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements ImagePreviewsFragment.OnListFragmentInteractionListener,
+        DetailedImageFragment.OnListFragmentInteractionListener {
     public static final String IMAGE_DATA_KEY = "image_data";
 
     @Override
@@ -34,5 +36,19 @@ public class MainActivity extends AppCompatActivity implements ImagePreviewsFrag
     @Override
     public void onImagePreviewsFragmentInteraction(ImagePreview item) {
         Log.i("imagePressed", item.getName() + " - " + Integer.toString(item.getId()));
+        DetailedImageFragment detailedImageFragment = new DetailedImageFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("image_preview", item);
+        detailedImageFragment.setArguments(bundle);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, detailedImageFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void onDetailedImageFragmentInteraction(ImagePreview item) {
+
     }
 }
