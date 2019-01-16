@@ -6,6 +6,30 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark" />
+        android:layout_height="0dp"
+        android:layout_weight="14"
+        android:background="@android:color/background_dark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/background_dark"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/prev_page_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Previous page" />
+
+        <Button
+            android:id="@+id/next_page_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Next page" />
+    </LinearLayout>
+
 </LinearLayout>
