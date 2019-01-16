@@ -7,6 +7,7 @@ import android.util.Log;
 
 import androidx.viewpager.widget.ViewPager;
 import joshuahalvorson.com.joshh.spaceimageviewer.image.HubbleImage;
+import joshuahalvorson.com.joshh.spaceimageviewer.image.ImagePreview;
 import joshuahalvorson.com.joshh.spaceimageviewer.view.fragment.ImagesFragment;
 import joshuahalvorson.com.joshh.spaceimageviewer.R;
 import joshuahalvorson.com.joshh.spaceimageviewer.adapter.ViewPagerAdapter;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements ImagesFragment.On
     }
 
     @Override
-    public void onListFragmentInteraction(HubbleImage item) {
-        Log.i("imagePressed", "Image pressed");
+    public void onListFragmentInteraction(ImagePreview item) {
+        Log.i("imagePressed", item.getName());
     }
 }

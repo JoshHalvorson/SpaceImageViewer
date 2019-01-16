@@ -1,6 +1,7 @@
 package joshuahalvorson.com.joshh.spaceimageviewer.view.fragment;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,10 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import joshuahalvorson.com.joshh.spaceimageviewer.image.HubbleImage;
 import joshuahalvorson.com.joshh.spaceimageviewer.adapter.MyHubbleImageRecyclerViewAdapter;
 import joshuahalvorson.com.joshh.spaceimageviewer.R;
+import joshuahalvorson.com.joshh.spaceimageviewer.image.ImagePreview;
+import joshuahalvorson.com.joshh.spaceimageviewer.viewmodel.HubbleImageClientViewModel;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +31,8 @@ public class ImagesFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
 
     private RecyclerView recyclerView;
-
+    private static List<ImagePreview> imagePreviews;
+    private MyHubbleImageRecyclerViewAdapter adapter;
 
     public ImagesFragment() {
     }
@@ -48,18 +54,29 @@ public class ImagesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        List<HubbleImage> hubbleImages = new ArrayList<>();
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            recyclerView = view.findViewById(R.id.list);
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        Context context = view.getContext();
+
+        imagePreviews = new ArrayList<>();
+
+        adapter = new MyHubbleImageRecyclerViewAdapter(imagePreviews, mListener);
+        recyclerView = view.findViewById(R.id.list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Button button = getView().findViewById(R.id.update);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new getImagePreviews().execute();
             }
-            recyclerView.setAdapter(new MyHubbleImageRecyclerViewAdapter(hubbleImages, mListener));
-        }
+        });
+
+        //
     }
 
     @Override
@@ -80,6 +97,28 @@ public class ImagesFragment extends Fragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(HubbleImage item);
+        void onListFragmentInteraction(ImagePreview item);
+    }
+
+    private class getImagePreviews extends AsyncTask<Void, Integer, List<ImagePreview>>{
+
+        @Override
+        protected List<ImagePreview> doInBackground(Void... voids) {
+            List<ImagePreview> imagePreviews = HubbleImageClientViewModel.getImagePreviews(1);
+            return imagePreviews;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(List<ImagePreview> imagePreviewsList) {
+            super.onPostExecute(imagePreviewsList);
+            imagePreviews.clear();
+            imagePreviews.addAll(imagePreviewsList);
+            adapter.notifyDataSetChanged();
+        }
     }
 }
