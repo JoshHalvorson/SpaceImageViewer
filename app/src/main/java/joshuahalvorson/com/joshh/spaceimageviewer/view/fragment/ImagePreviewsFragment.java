@@ -135,6 +135,7 @@ public class ImagePreviewsFragment extends Fragment {
             imagePreviews.clear();
             imagePreviews.addAll(imagePreviewsList);
             pageNumber.setText(Integer.toString(currentPage));
+            recyclerView.getLayoutManager().scrollToPosition(0);
             adapter.notifyDataSetChanged();
         }
     }
