@@ -20,16 +20,17 @@
         <Button
             android:id="@+id/prev_page_button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="Previous page" />
+            android:background="@drawable/ic_sharp_arrow_back_24px"
+            android:backgroundTint="@android:color/background_light" />
 
         <TextView
             android:id="@+id/page_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:text="1"
             android:textAlignment="center"
             android:textColor="@android:color/white"
@@ -40,7 +41,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Next page" />
+            android:background="@drawable/ic_sharp_arrow_forward_24px"
+            android:backgroundTint="@android:color/background_light" />
     </LinearLayout>
 
 </LinearLayout>
