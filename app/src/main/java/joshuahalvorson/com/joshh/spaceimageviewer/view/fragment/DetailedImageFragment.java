@@ -145,7 +145,11 @@ public class DetailedImageFragment extends Fragment {
                         .into(image);
             }
             imageTitle.setText(hubbleImage.getName());
-            imageDesc.setText(hubbleImage.getDescription());
+
+            String description = hubbleImage.getDescription()
+                    .replaceAll("\\<.*?\\>", "")
+                    .replaceAll("\\[.*?\\]", "");
+            imageDesc.setText(description);
             imageCredits.setText(hubbleImage.getCredits());
         }
     }
