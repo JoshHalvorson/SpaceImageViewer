@@ -141,16 +141,26 @@ public class DetailedImageFragment extends Fragment {
                                 return false;
                             }
                         })
-                        .thumbnail(.5f)
+                        .thumbnail(.1f)
                         .into(image);
             }
+
             imageTitle.setText(hubbleImage.getName());
 
-            String description = hubbleImage.getDescription()
-                    .replaceAll("\\<.*?\\>", "")
-                    .replaceAll("\\[.*?\\]", "");
-            imageDesc.setText(description);
-            imageCredits.setText(hubbleImage.getCredits());
+            if(hubbleImage.getDescription() != null) {
+                String description = hubbleImage.getDescription()
+                        .replaceAll("\\<.*?\\>", "")
+                        .replaceAll("\\[.*?\\]", "");
+                imageDesc.setText(description);
+            }else{
+                imageDesc.setText("No description for image.");
+            }
+
+            if(hubbleImage.getCredits() != null){
+                imageCredits.setText(hubbleImage.getCredits());
+            }else{
+                imageCredits.setText("No credits for image.");
+            }
         }
     }
 }
