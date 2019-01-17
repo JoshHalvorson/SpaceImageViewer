@@ -1,4 +1,4 @@
 # SpaceImageViewer
-Pulls a random image from the http://hubblesite.org/ api (http://hubblesite.org/api/documentation) and info about that image.
+Lists images from the http://hubblesite.org/ api (http://hubblesite.org/api/documentation) and displays info about that image.
 
-![alt text](demo.gif)
+<img src="demo.gif" alt="alt text" width="400" height="800">
