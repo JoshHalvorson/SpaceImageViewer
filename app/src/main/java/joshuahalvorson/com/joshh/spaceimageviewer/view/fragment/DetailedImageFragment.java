@@ -120,39 +120,44 @@ public class DetailedImageFragment extends Fragment {
                 for(ImageFile imageFile : imageFiles){
                     if(imageFile.getFileUrl().contains(".jpg") || imageFile.getFileUrl().contains(".png")
                             || imageFile.getFileUrl().contains(".gif")){
+                        if(imageFile.getFileSize() < 5000000){
+                            usuableImageFiles.add(imageFile);
+                            Log.i(TAG, Integer.toString(imageFile.getFileSize()));
 
-                        usuableImageFiles.add(imageFile);
+                        }
+
                     }
                 }
-                String imageUrl = usuableImageFiles.get(usuableImageFiles.size() - 1).getFileUrl();
-                Log.i(TAG, imageUrl);
-                Glide
-                        .with(getActivity())
-                        .load(imageUrl)
-                        .apply(new RequestOptions().centerCrop())
-                        .listener(new RequestListener<Drawable>() {
-                            @Override
-                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                Toast.makeText(
-                                                getContext(),
-                                                "Image failed to load",
-                                                Toast.LENGTH_SHORT).show();
-                                loadingCircle.setVisibility(View.GONE);
-                                image.setVisibility(View.GONE);
-                                return false;
-                            }
+                ImageFile highResImageFile = usuableImageFiles.get(usuableImageFiles.size() - 1);
+                ImageFile lowResImageFile = usuableImageFiles.get(0);
+                if(highResImageFile != null){
+                    String highResImageUrl = highResImageFile.getFileUrl();
+                    int highResFileSize = highResImageFile.getFileSize();
+                    Log.i(TAG, Integer.toString(highResFileSize));
+                    final String lowResImageUrl = lowResImageFile.getFileUrl();
+                    Glide
+                            .with(getActivity())
+                            .load(highResImageUrl)
+                            .apply(new RequestOptions().centerCrop())
+                            .error(Glide.with(getActivity()).load(lowResImageUrl))
+                            .listener(new RequestListener<Drawable>() {
+                                @Override
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                    return false;
+                                }
 
-                            @Override
-                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource,
-                                                           boolean isFirstResource) {
-                                loadingCircle.setVisibility(View.GONE);
-                                image.setVisibility(View.VISIBLE);
-                                return false;
-                            }
-                        })
-                        .thumbnail(.1f)
-                        .into(image);
-            }
+                                @Override
+                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource,
+                                                               boolean isFirstResource) {
+                                    loadingCircle.setVisibility(View.GONE);
+                                    image.setVisibility(View.VISIBLE);
+                                    return false;
+                                }
+                            })
+                            .thumbnail(.1f)
+                            .into(image);
+                }
+                }
 
             imageTitle.setText(hubbleImage.getName());
 
