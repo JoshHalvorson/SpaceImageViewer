@@ -4,6 +4,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import joshuahalvorson.com.joshh.spaceimageviewer.R;
@@ -41,6 +43,9 @@ public class MyHubbleImageRecyclerViewAdapter extends RecyclerView.Adapter<MyHub
                 }
             }
         });
+
+        Animation animation = AnimationUtils.loadAnimation(holder.mView.getContext(), android.R.anim.fade_in);
+        holder.mView.startAnimation(animation);
     }
 
     @Override
