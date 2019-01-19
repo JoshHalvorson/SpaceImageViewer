@@ -1,4 +1,4 @@
-package joshuahalvorson.com.joshh.spaceimageviewer;
+package joshuahalvorson.com.joshh.spaceimageviewer.view;
 
 import android.transition.ChangeBounds;
 import android.transition.ChangeImageTransform;

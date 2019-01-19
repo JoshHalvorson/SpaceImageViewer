@@ -2,19 +2,14 @@ package joshuahalvorson.com.joshh.spaceimageviewer.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActivityOptions;
 import android.os.Build;
 import android.os.Bundle;
-import android.transition.Explode;
 import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 
-import androidx.transition.FragmentTransitionSupport;
 import androidx.viewpager.widget.ViewPager;
-import joshuahalvorson.com.joshh.spaceimageviewer.DetailsTransition;
-import joshuahalvorson.com.joshh.spaceimageviewer.adapter.MyHubbleImageRecyclerViewAdapter;
+import joshuahalvorson.com.joshh.spaceimageviewer.view.DetailsTransition;
 import joshuahalvorson.com.joshh.spaceimageviewer.image.ImagePreview;
 import joshuahalvorson.com.joshh.spaceimageviewer.view.fragment.DetailedImageFragment;
 import joshuahalvorson.com.joshh.spaceimageviewer.view.fragment.ImagePreviewsFragment;
