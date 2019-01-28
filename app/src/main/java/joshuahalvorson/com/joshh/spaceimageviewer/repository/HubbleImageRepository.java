@@ -33,7 +33,6 @@ public class HubbleImageRepository {
             public void onResponse(Call<List<ImagePreview>> call, Response<List<ImagePreview>> response) {
                 imagePreviews.setValue(response.body());
                 Log.i(TAG, Integer.toString(response.body().size()));
-                //Log.i(TAG, Integer.toString(imagePreviews.size()));
             }
 
             @Override
@@ -41,12 +40,6 @@ public class HubbleImageRepository {
                 Log.i(TAG, t.getLocalizedMessage());
             }
         });
-        //Log.i(TAG, Integer.toString(imagePreviews.size()));
-        /*try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         return imagePreviews;
     }
 
@@ -64,11 +57,6 @@ public class HubbleImageRepository {
                 Log.i(TAG, t.getLocalizedMessage());
             }
         });
-        /*try {
-            Thread.sleep(300);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         return hubbleImage;
     }
 }
