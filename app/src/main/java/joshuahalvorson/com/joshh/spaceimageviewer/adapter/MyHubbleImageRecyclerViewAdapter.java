@@ -35,6 +35,8 @@ public class MyHubbleImageRecyclerViewAdapter extends RecyclerView.Adapter<MyHub
         holder.image = imagePreviews.get(position);
         holder.imageName.setText(imagePreviews.get(position).getName());
 
+        animateOnEnter(holder.mView, holder, position);
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,9 +45,15 @@ public class MyHubbleImageRecyclerViewAdapter extends RecyclerView.Adapter<MyHub
                 }
             }
         });
+    }
 
-        Animation animation = AnimationUtils.loadAnimation(holder.mView.getContext(), android.R.anim.fade_in);
-        holder.mView.startAnimation(animation);
+    public void animateOnEnter(View view, ViewHolder viewHolder, int position){
+        if(position > viewHolder.lastPos){
+            Animation animation = AnimationUtils.loadAnimation(view.getContext(), android.R.anim.fade_in);
+            animation.setDuration(100);
+            view.startAnimation(animation);
+            viewHolder.lastPos = position;
+        }
     }
 
     @Override
@@ -57,11 +65,13 @@ public class MyHubbleImageRecyclerViewAdapter extends RecyclerView.Adapter<MyHub
         public final View mView;
         public TextView imageName;
         public ImagePreview image;
+        int lastPos;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             imageName = view.findViewById(R.id.image_name_text);
+            lastPos = -1;
         }
 
         @Override
