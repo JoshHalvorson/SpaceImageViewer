@@ -6,12 +6,17 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import joshuahalvorson.com.joshh.spaceimageviewer.adapter.MyHubbleImageRecyclerViewAdapter;
 import joshuahalvorson.com.joshh.spaceimageviewer.R;
 import joshuahalvorson.com.joshh.spaceimageviewer.image.ImagePreview;
 import joshuahalvorson.com.joshh.spaceimageviewer.viewmodel.HubbleImageClientViewModel;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +35,15 @@ public class ImagePreviewsFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
 
     private RecyclerView recyclerView;
-    private static List<ImagePreview> imagePreviews;
+    private LiveData<List<ImagePreview>> imagePreviews;
+    private List<ImagePreview> imagePreviewsList;
+
     private MyHubbleImageRecyclerViewAdapter adapter;
 
     private Button prevPageButton, nextPageButton;
     private TextView pageNumber;
+
+    Context context;
 
     public ImagePreviewsFragment() {
     }
@@ -54,14 +63,15 @@ public class ImagePreviewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Context context = view.getContext();
-        imagePreviews = new ArrayList<>();
+        imagePreviewsList = new ArrayList<>();
 
-        adapter = new MyHubbleImageRecyclerViewAdapter(imagePreviews, mListener);
         recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setHasFixedSize(true);
+        adapter = new MyHubbleImageRecyclerViewAdapter(imagePreviewsList, mListener);
         recyclerView.setAdapter(adapter);
+
+        context = view.getContext();
 
         nextPageButton = view.findViewById(R.id.next_page_button);
         prevPageButton = view.findViewById(R.id.prev_page_button);
@@ -71,13 +81,17 @@ public class ImagePreviewsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        new getImagePreviews().execute();
+
+        updateList(currentPage);
+
         nextPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(currentPage < LAST_PAGE){
                     currentPage++;
-                    new getImagePreviews().execute();
+                    updateList(currentPage);
+                }else{
+                    Toast.makeText(getActivity(), "No next page", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -87,10 +101,24 @@ public class ImagePreviewsFragment extends Fragment {
             public void onClick(View v) {
                 if(currentPage > FIRST_PAGE){
                     currentPage--;
-                    new getImagePreviews().execute();
+                    updateList(currentPage);
                 }else{
                     Toast.makeText(getActivity(), "No previous page", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+    }
+
+    private void updateList(int page) {
+        imagePreviews = HubbleImageClientViewModel.getImagePreviews(page);
+        imagePreviews.observe(this, new Observer<List<ImagePreview>>() {
+            @Override
+            public void onChanged(List<ImagePreview> retImagePreviewsList) {
+                pageNumber.setText(Integer.toString(currentPage));
+                imagePreviewsList.clear();
+                imagePreviewsList.addAll(retImagePreviewsList);
+                recyclerView.getLayoutManager().scrollToPosition(0);
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -114,29 +142,5 @@ public class ImagePreviewsFragment extends Fragment {
 
     public interface OnListFragmentInteractionListener {
         void onImagePreviewsFragmentInteraction(ImagePreview item, View sharedView);
-    }
-
-    private class getImagePreviews extends AsyncTask<Void, Integer, List<ImagePreview>>{
-
-        @Override
-        protected List<ImagePreview> doInBackground(Void... voids) {
-            List<ImagePreview> imagePreviews = HubbleImageClientViewModel.getImagePreviews(currentPage);
-            return imagePreviews;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(List<ImagePreview> imagePreviewsList) {
-            super.onPostExecute(imagePreviewsList);
-            imagePreviews.clear();
-            imagePreviews.addAll(imagePreviewsList);
-            pageNumber.setText(Integer.toString(currentPage));
-            recyclerView.getLayoutManager().scrollToPosition(0);
-            adapter.notifyDataSetChanged();
-        }
     }
 }
