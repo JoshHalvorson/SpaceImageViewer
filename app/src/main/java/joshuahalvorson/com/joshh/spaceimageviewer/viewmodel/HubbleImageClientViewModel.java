@@ -14,13 +14,15 @@ import joshuahalvorson.com.joshh.spaceimageviewer.repository.HubbleImageReposito
 public class HubbleImageClientViewModel extends ViewModel {
 
     private static MutableLiveData<List<ImagePreview>> liveData;
+    private static MutableLiveData<HubbleImage> hubbleImage;
 
     public static LiveData<List<ImagePreview>> getImagePreviews(int page){
         liveData = HubbleImageRepository.getImagePreviews(page);
         return liveData;
     }
 
-    public static MutableLiveData<HubbleImage> getImageData(int id){
-        return HubbleImageRepository.getImageData(id);
+    public static LiveData<HubbleImage> getImageData(int id){
+        hubbleImage = HubbleImageRepository.getImageData(id);
+        return hubbleImage;
     }
 }

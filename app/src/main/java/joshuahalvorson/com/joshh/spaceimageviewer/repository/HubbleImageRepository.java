@@ -18,9 +18,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HubbleImageRepository {
     private static final String TAG = "HubbleImageRepository";
 
-    static MutableLiveData<List<ImagePreview>> imagePreviews;
-    static MutableLiveData<HubbleImage> hubbleImage;
-
     private static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(HubbleImageClient.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -29,7 +26,7 @@ public class HubbleImageRepository {
 
 
     public static MutableLiveData<List<ImagePreview>> getImagePreviews(int page){
-        imagePreviews = new MutableLiveData<>();
+        final MutableLiveData<List<ImagePreview>> imagePreviews = new MutableLiveData<>();
         Call<List<ImagePreview>> call = client.getAllImages(page);
         call.enqueue(new Callback<List<ImagePreview>>() {
             @Override
@@ -54,6 +51,7 @@ public class HubbleImageRepository {
     }
 
     public static MutableLiveData<HubbleImage> getImageData(int id){
+        final MutableLiveData<HubbleImage> hubbleImage = new MutableLiveData<>();
         Call<HubbleImage> call = client.getImageData(id);
         call.enqueue(new Callback<HubbleImage>() {
             @Override
