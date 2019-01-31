@@ -98,34 +98,38 @@ public class DetailedImageFragment extends Fragment {
 
                         }
                     }
-                    ImageFile highResImageFile = usuableImageFiles.get(usuableImageFiles.size() - 1);
-                    ImageFile lowResImageFile = usuableImageFiles.get(0);
-                    if(highResImageFile != null){
-                        String highResImageUrl = highResImageFile.getFileUrl();
-                        int highResFileSize = highResImageFile.getFileSize();
-                        Log.i(TAG, Integer.toString(highResFileSize));
-                        final String lowResImageUrl = lowResImageFile.getFileUrl();
-                        Glide
-                                .with(getActivity())
-                                .load(highResImageUrl)
-                                .apply(new RequestOptions().centerCrop())
-                                .error(Glide.with(getActivity()).load(lowResImageUrl))
-                                .listener(new RequestListener<Drawable>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                        return false;
-                                    }
+                    if(usuableImageFiles.size() > 0){
+                        ImageFile highResImageFile = usuableImageFiles.get(usuableImageFiles.size() - 1);
+                        ImageFile lowResImageFile = usuableImageFiles.get(0);
+                        if(highResImageFile != null){
+                            String highResImageUrl = highResImageFile.getFileUrl();
+                            int highResFileSize = highResImageFile.getFileSize();
+                            Log.i(TAG, Integer.toString(highResFileSize));
+                            final String lowResImageUrl = lowResImageFile.getFileUrl();
+                            Glide
+                                    .with(getActivity())
+                                    .load(highResImageUrl)
+                                    .apply(new RequestOptions().centerCrop())
+                                    .error(Glide.with(getActivity()).load(lowResImageUrl))
+                                    .listener(new RequestListener<Drawable>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                            return false;
+                                        }
 
-                                    @Override
-                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource,
-                                                                   boolean isFirstResource) {
-                                        loadingCircle.setVisibility(View.GONE);
-                                        image.setVisibility(View.VISIBLE);
-                                        return false;
-                                    }
-                                })
-                                .thumbnail(.1f)
-                                .into(image);
+                                        @Override
+                                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource,
+                                                                       boolean isFirstResource) {
+                                            loadingCircle.setVisibility(View.GONE);
+                                            image.setVisibility(View.VISIBLE);
+                                            return false;
+                                        }
+                                    })
+                                    .thumbnail(.1f)
+                                    .into(image);
+                        }
+                    }else{
+                        Toast.makeText(getContext(), "No image to load", Toast.LENGTH_LONG).show();
                     }
                 }
 
