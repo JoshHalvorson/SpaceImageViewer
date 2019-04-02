@@ -1,9 +1,6 @@
 package joshuahalvorson.com.joshh.spaceimageviewer.viewmodel;
 
-import android.media.Image;
-
 import java.util.List;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
