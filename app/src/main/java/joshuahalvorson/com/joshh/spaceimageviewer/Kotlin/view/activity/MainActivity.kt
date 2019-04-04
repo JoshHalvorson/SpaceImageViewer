@@ -13,6 +13,7 @@ import joshuahalvorson.com.joshh.spaceimageviewer.R
 class MainActivity : AppCompatActivity(), ImagePreviewListFragment.OnListFragmentInteractionListener{
     override fun onListFragmentInteraction(item: Model.ImagePreview?) {
         val intent = Intent(this, DetailImageActivity::class.java)
+        intent.putExtra("imagepreview", item)
         startActivity(intent)
     }
 
