@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -59,6 +60,7 @@ class DetailImageActivity : AppCompatActivity() {
         Glide
                 .with(this)
                 .load(image.image_files?.get(1)?.file_url)
+                .apply(RequestOptions().centerCrop())
                 .listener(object: RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         Toast.makeText(applicationContext, e?.localizedMessage, Toast.LENGTH_LONG).show()
