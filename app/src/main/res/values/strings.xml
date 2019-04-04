@@ -4,4 +4,5 @@
     <string name="image_desc_default_text">No description for this image.</string>
     <string name="new_image_button_text">New Image</string>
     <string name="image_desc_null_text">Image has no description</string>
+    <string name="image_credits_null_text">No credits for image.</string>
 </resources>
