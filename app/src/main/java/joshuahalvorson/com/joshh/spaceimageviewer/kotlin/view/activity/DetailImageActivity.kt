@@ -61,6 +61,7 @@ class DetailImageActivity : AppCompatActivity() {
                 .load(image.image_files?.get(1)?.file_url)
                 .listener(object: RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        Toast.makeText(applicationContext, e?.localizedMessage, Toast.LENGTH_LONG).show()
                         return false
                     }
 
