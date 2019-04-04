@@ -1,4 +1,4 @@
-package joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.model
+package joshuahalvorson.com.joshh.spaceimageviewer.kotlin.model
 
 import java.io.Serializable
 

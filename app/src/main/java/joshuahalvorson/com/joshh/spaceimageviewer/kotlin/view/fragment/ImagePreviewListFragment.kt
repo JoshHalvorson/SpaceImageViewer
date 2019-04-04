@@ -1,4 +1,4 @@
-package joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.view.fragment
+package joshuahalvorson.com.joshh.spaceimageviewer.kotlin.view.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -11,9 +11,9 @@ import android.widget.Toast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.adapter.ImagePreviewRecyclerViewAdapter
-import joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.model.Model
-import joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.network.HubbleImageService
+import joshuahalvorson.com.joshh.spaceimageviewer.kotlin.adapter.ImagePreviewRecyclerViewAdapter
+import joshuahalvorson.com.joshh.spaceimageviewer.kotlin.model.Model
+import joshuahalvorson.com.joshh.spaceimageviewer.kotlin.network.HubbleImageService
 import joshuahalvorson.com.joshh.spaceimageviewer.R
 import kotlinx.android.synthetic.main.fragment_image_preview_list.*
 

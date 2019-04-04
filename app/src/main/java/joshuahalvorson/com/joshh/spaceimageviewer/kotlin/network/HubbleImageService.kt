@@ -1,7 +1,7 @@
-package joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.network
+package joshuahalvorson.com.joshh.spaceimageviewer.kotlin.network
 
 import io.reactivex.Observable
-import joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.model.Model
+import joshuahalvorson.com.joshh.spaceimageviewer.kotlin.model.Model
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

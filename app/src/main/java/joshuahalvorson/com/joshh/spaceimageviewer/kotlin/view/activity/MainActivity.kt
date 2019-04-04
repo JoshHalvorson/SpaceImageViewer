@@ -1,4 +1,4 @@
-package joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.view.activity
+package joshuahalvorson.com.joshh.spaceimageviewer.kotlin.view.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,8 +6,8 @@ import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import joshuahalvorson.com.joshh.spaceimageviewer.Java.adapter.ViewPagerAdapter
-import joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.model.Model
-import joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.view.fragment.ImagePreviewListFragment
+import joshuahalvorson.com.joshh.spaceimageviewer.kotlin.model.Model
+import joshuahalvorson.com.joshh.spaceimageviewer.kotlin.view.fragment.ImagePreviewListFragment
 import joshuahalvorson.com.joshh.spaceimageviewer.R
 
 class MainActivity : AppCompatActivity(), ImagePreviewListFragment.OnListFragmentInteractionListener{

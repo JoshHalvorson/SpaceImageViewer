@@ -1,12 +1,12 @@
-package joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.adapter
+package joshuahalvorson.com.joshh.spaceimageviewer.kotlin.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.model.Model
+import joshuahalvorson.com.joshh.spaceimageviewer.kotlin.model.Model
 import joshuahalvorson.com.joshh.spaceimageviewer.R
-import joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.view.fragment.ImagePreviewListFragment.OnListFragmentInteractionListener
+import joshuahalvorson.com.joshh.spaceimageviewer.kotlin.view.fragment.ImagePreviewListFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.images_element_layout.view.*
 
 class ImagePreviewRecyclerViewAdapter(

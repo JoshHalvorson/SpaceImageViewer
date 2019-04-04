@@ -1,11 +1,10 @@
-package joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.view.activity
+package joshuahalvorson.com.joshh.spaceimageviewer.kotlin.view.activity
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -15,8 +14,8 @@ import com.bumptech.glide.request.target.Target
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.model.Model
-import joshuahalvorson.com.joshh.spaceimageviewer.Kotlin.network.HubbleImageService
+import joshuahalvorson.com.joshh.spaceimageviewer.kotlin.model.Model
+import joshuahalvorson.com.joshh.spaceimageviewer.kotlin.network.HubbleImageService
 import joshuahalvorson.com.joshh.spaceimageviewer.R
 import kotlinx.android.synthetic.main.activity_detail_image.*
 
