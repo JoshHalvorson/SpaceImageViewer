@@ -72,6 +72,7 @@ class DetailImageActivity : AppCompatActivity() {
                         return false
                     }
                 })
+                .thumbnail(.1f)
                 .into(image_image_view)
 
         if (image.description != null) {
